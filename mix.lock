@@ -1,0 +1,4 @@
+%{
+  "singyeong_plugin": {:git, "git@github.com:queer/singyeong_plugin.git", "2d9dcd18bea9be72d9ba9cec653c9f56d1bc8f68", []},
+  "typed_struct": {:hex, :typed_struct, "0.1.4", "25971ce73a8b336dedf2f80e4dafaab111af127ba4773955b66805c89e197f6a", [:mix], [], "hexpm"},
+}
