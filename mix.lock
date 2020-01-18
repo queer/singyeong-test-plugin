@@ -1,4 +1,6 @@
 %{
-  "singyeong_plugin": {:git, "git@github.com:queer/singyeong_plugin.git", "2d9dcd18bea9be72d9ba9cec653c9f56d1bc8f68", []},
+  "rustler": {:hex, :rustler, "0.21.0", "68cc4fc015d0b9541865ea78e78e9ef2dd91ee4be80bf543fd15791102a45aca", [:mix], [{:toml, "~> 0.5.2", [hex: :toml, repo: "hexpm", optional: false]}], "hexpm"},
+  "singyeong_plugin": {:git, "git@github.com:queer/singyeong_plugin.git", "d1151662120846dca462ed74239a974f6bbd77d1", []},
+  "toml": {:hex, :toml, "0.5.2", "e471388a8726d1ce51a6b32f864b8228a1eb8edc907a0edf2bb50eab9321b526", [:mix], [], "hexpm"},
   "typed_struct": {:hex, :typed_struct, "0.1.4", "25971ce73a8b336dedf2f80e4dafaab111af127ba4773955b66805c89e197f6a", [:mix], [], "hexpm"},
 }

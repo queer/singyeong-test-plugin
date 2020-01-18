@@ -26,3 +26,6 @@ singyeong_plugin_test-*.tar
 *.zip
 # Ignore plugin packaging workdir
 /work
+/priv/native
+/native/*/target
+/native/*/.cargo

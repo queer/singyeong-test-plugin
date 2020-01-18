@@ -21,6 +21,8 @@ defmodule SingyeongPluginTest do
   @impl Singyeong.Plugin
   def load do
     Logger.info "Loaded test plugin! wowie!"
+    {:ok, out} = SingyeongPluginTest.Native.add 1, 2
+    Logger.info "Addition result from native code: #{out}"
     {:ok, []}
   end
 

@@ -7,7 +7,13 @@ defmodule SingyeongPluginTest.MixProject do
       version: "0.1.0",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      compilers: [:rustler] ++ Mix.compilers(),
+      rustler_crates: [
+        singyeongplugintest_native: [
+          mode: (if Mix.env() == :prod, do: :release, else: :debug)
+        ]
+      ],
     ]
   end
 
@@ -24,6 +30,7 @@ defmodule SingyeongPluginTest.MixProject do
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
       {:singyeong_plugin, git: "git@github.com:queer/singyeong_plugin.git"},
+      {:rustler, "~> 0.21.0"},
     ]
   end
 end
