@@ -1,5 +1,6 @@
 defmodule SingyeongPluginTest do
-  alias Singyeong.Plugin.{Manifest, Payload}
+  import Plug.Conn
+  alias Singyeong.Plugin.{Manifest, Payload, RestRoute}
   require Logger
 
   @behaviour Singyeong.Plugin
@@ -15,7 +16,26 @@ defmodule SingyeongPluginTest do
       "ERROR",
       "ERROR_WITH_UNDO",
       "ERROR_WITH_UNDO_ERROR",
-    ]
+    ],
+    capabilities: [
+      :custom_events,
+      :rest,
+    ],
+    native_modules: [SingyeongPluginTest.Native],
+    rest_routes: [
+      %RestRoute{
+        method: :get,
+        route: "/test",
+        module: __MODULE__,
+        function: :test_rest_route
+      },
+      %RestRoute{
+        method: :get,
+        route: "/test/:test",
+        module: __MODULE__,
+        function: :test_rest_param_route
+      },
+    ],
   }
 
   @impl Singyeong.Plugin
@@ -67,5 +87,17 @@ defmodule SingyeongPluginTest do
   def undo("ERROR_WITH_UNDO_ERROR", state) do
     Logger.info "Received undo state: #{state}"
     {:error, "undo error"}
+  end
+
+  def test_rest_route(conn, _params) do
+    conn
+    |> put_resp_content_type("text/plain")
+    |> send_resp(200, "Henlo world")
+  end
+
+  def test_rest_param_route(conn, params) do
+    conn
+    |> put_resp_content_type("text/plain")
+    |> send_resp(200, "Henlo param: #{params["test"]}")
   end
 end
