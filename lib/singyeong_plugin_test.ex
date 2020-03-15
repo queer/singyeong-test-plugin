@@ -20,6 +20,7 @@ defmodule SingyeongPluginTest do
     capabilities: [
       :custom_events,
       :rest,
+      :all_events,
     ],
     native_modules: [SingyeongPluginTest.Native],
     rest_routes: [
@@ -100,4 +101,20 @@ defmodule SingyeongPluginTest do
     |> put_resp_content_type("text/plain")
     |> send_resp(200, "Henlo param: #{params["test"]}")
   end
+
+  @impl Singyeong.Plugin
+  def handle_global_event("SEND", :client, payload) do
+    Logger.info "Got global outgoing payload: #{inspect payload, pretty: true}"
+    {:next, payload}
+  end
+
+  @impl Singyeong.Plugin
+  def handle_global_event("SEND", :server, payload) do
+    Logger.info "Got global incoming payload: #{inspect payload, pretty: true}"
+    {:next, payload}
+  end
+
+  # Required to avoid pattern match runtime errors
+  @impl Singyeong.Plugin
+  def handle_global_event(_, _, payload), do: {:next, payload}
 end
