@@ -4,8 +4,8 @@ defmodule SingyeongPluginTest.MixProject do
   def project do
     [
       app: :singyeong_plugin_test,
-      version: "0.1.0",
-      elixir: "~> 1.9",
+      version: "0.1.1",
+      elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       compilers: [:rustler] ++ Mix.compilers(),
