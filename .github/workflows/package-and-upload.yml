@@ -1,16 +1,18 @@
-name: Package
-
 on:
   push:
-    branches: '*'
-    tags: '*'
-  pull_request:
+    branches: "master"
+    tags:
+      - "*"
+
+name: package and release
 
 jobs:
   linux-x86:
+    name: package and release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Install Elixir
         uses: actions/setup-elixir@v1
         with:
@@ -18,14 +20,21 @@ jobs:
           elixir-version: 1.11.2
       - name: Install Rust
         run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
+          curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
           rustup update
       - name: Package
         run: |
           mix deps.get
           mix compile
           mix singyeong.package
-      - uses: actions/upload-artifact@v2
+      - name: Create release
+        uses: Roang-zero1/github-create-release-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create GitHub release
+        uses: Roang-zero1/github-upload-release-artifacts-action@master
         with:
-          name: linux-x86-natives
-          path: ./singyeong_plugin_test.zip
+          args:
+          - ./singyeong_plugin_test.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
