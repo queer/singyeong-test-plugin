@@ -33,7 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create GitHub release
         uses: Roang-zero1/github-upload-release-artifacts-action@master
-        args:
-        - ./singyeong_plugin_test.zip
+        with:
+          args: "./singyeong_plugin_test.zip"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
