@@ -22,6 +22,7 @@ jobs:
           rustup update
       - name: Package
         run: |
+          mix deps.get
           mix compile
           mix singyeong.package
       - uses: actions/upload-artifact@v2
