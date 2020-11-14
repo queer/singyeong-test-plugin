@@ -1,0 +1,30 @@
+name: Package
+
+on:
+  push:
+    branches: '*'
+    tags: '*'
+  pull_request:
+
+jobs:
+  linux-x86:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Elixir
+        uses: actions/setup-elixir@v1
+        with:
+          otp-version: 23.1.2
+          elixir-version: 1.11.2
+      - name: Install Rust
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+          rustup update
+      - name: Package
+        run: |
+          mix compile
+          mix singyeong.package
+      - uses: actions/upload-artifact@v2
+        with:
+          name: linux-x86-natives
+          path: ./singyeong_plugin_test.zip
